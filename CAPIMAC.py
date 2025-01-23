@@ -80,40 +80,15 @@ def load_data(align_prop,complete_prop,neg_num,is_noise,dataset):
     if dataset == 'Scene15':
         data = mat['X'][0][0:2]  # 20, 59 dimensions
         label = np.squeeze(mat['Y'])
-    elif dataset == 'HandWritten':
-        data = mat['X'][0][1:3]
-        label = np.squeeze(mat['Y'])
     elif dataset == '3Sources':
         data = mat['X'][0][0:2]
         label = np.squeeze(mat['Y'])
-    elif dataset == 'ALOI':
-        data = mat['X'][0][0:2]
-        label = np.squeeze(mat['gt'])
     elif dataset == 'BBCsports':
         data = mat['X'][0][0:2]
         label = np.squeeze(mat['Y'])
     elif dataset == 'Caltech101':
         data = mat['X'][0][0:2]
         label = np.squeeze(mat['Y'])
-    elif dataset == 'Reuters_dim10':
-        data = []  # 18758 samples
-        data.append(normalize(np.vstack((mat['x_train'][0], mat['x_test'][0]))))
-        data.append(normalize(np.vstack((mat['x_train'][1], mat['x_test'][1]))))
-        label = np.squeeze(np.hstack((mat['y_train'], mat['y_test'])))
-    elif dataset == 'ORL_mtv':
-        data = mat['X'][0][0:2]
-        label = np.squeeze(mat['gt'])
-    elif dataset == 'Caltech101_7':
-        data = mat['data'][3:5]
-        data[0], data[1] = np.squeeze(data[0]), np.squeeze(data[1])
-        data[0], data[1] = np.array(data[0]), np.array(data[1])
-        label = np.squeeze(mat['labels'])
-    elif dataset == 'Reuters':
-        data = mat['X'][0][0:2]
-        label = np.squeeze(mat['Y'])
-    elif dataset == '20NewsGroups':
-        data = mat['data'][0][1:3]
-        label = np.squeeze(mat['truelabel'][0][0])
     elif dataset == '100leaves':
         mat['data'][0][0], mat['data'][0][1] = mat['data'][0][0].T, mat['data'][0][1].T
         data = mat['data'][0][0:2]
@@ -122,31 +97,11 @@ def load_data(align_prop,complete_prop,neg_num,is_noise,dataset):
         data = mat['data'][0][0:2]
         label = np.squeeze(mat['truelabel'][0][0])
         # print(label)
-    elif dataset == 'MSRCv1':
-        data = mat['X'][0][1:3]
-        label = np.squeeze(mat['Y'])
-    elif dataset == 'BDGP':
-        mat['X'][0][0], mat['X'][0][1] = mat['X'][0][0].T, mat['X'][0][1].T
-        data = mat['X'][0][0:2]
-        label = np.squeeze(mat['gt'])
-    elif dataset == 'HandWritten':
-        data = mat['X'][0][0:2]
-        label = np.squeeze(mat['Y'])
     elif dataset == 'yale_mtv':
         mat['X'][0][0], mat['X'][0][1] = mat['X'][0][0].T, mat['X'][0][1].T
         data = mat['X'][0][0:2]
         # print((data))
         label = np.squeeze(mat['gt'])
-    elif dataset == 'Wikipedia-test':
-        data = mat['X'][0:2][0:2]
-        data = np.squeeze(data.T)
-        # print(data)
-        label = np.squeeze(mat['y'])
-    elif dataset == 'Movies':
-        data = mat['X'][0:2][0:2]
-        data = np.squeeze(data.T)
-        # print(data)
-        label = np.squeeze(mat['y'])
     elif dataset == 'Prokaryotic':
         value1 = mat['X'][0][0]
         value2 = mat['X'][2][0]
@@ -287,22 +242,5 @@ if __name__ == '__main__':
                 # logging.info(
                 #     "CAR={} kmeans: acc={} nmi={} ari={}".format(round(alignment_rate, 4), ret['kmeans']['accuracy'],
                 #                                                  ret['kmeans']['NMI'], ret['kmeans']['ARI']))
-            acc_list.append(ret['kmeans']['ACC'])
-            nmi_list.append(ret['kmeans']['NMI'])
-            ari_list.append(ret['kmeans']['ARI'])
-            f_list.append(ret['kmeans']['F1'])
-            f1_list.append(ret['kmeans']['F2'])
-            pre_list.append(ret['kmeans']['PRE'])
-            pre2_list.append(ret['kmeans']['PRE2'])
-            rec_list.append(ret['kmeans']['REC'])
-            pur_list.append(ret['kmeans']['PUR'])
-        print('ACC:', max(acc_list))
-        print("NMI:", max(nmi_list))
-        print("ARI:", max(ari_list))
-        print("F1:", max(f_list))
-        print("F2:", max(f1_list))
-        print("PRE:", max(pre_list))
-        print("PRE2:", max(pre2_list))
-        print("REC:", max(rec_list))
-        print("PUR:", max(pur_list))
+          
         logging.info('******** End, training time = {} s ********'.format(round(train_time, 2)))
